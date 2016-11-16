@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'BVBaseComponents_Example' do
+  pod 'BVBaseComponents', :path => '../'
+
+  target 'BVBaseComponents_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
