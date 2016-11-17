@@ -58,7 +58,7 @@ open class Datasource: NSObject {
     
 }
 
-open class DatasourceController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+open class BVDatasourceController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     public let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
