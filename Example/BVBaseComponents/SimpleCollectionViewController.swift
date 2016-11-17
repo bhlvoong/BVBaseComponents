@@ -38,7 +38,7 @@ class SimpleCell: DatasourceCell {
     }
 }
 
-class SimpleCollectionViewController: DatasourceController {
+class SimpleCollectionViewController: BVDatasourceController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

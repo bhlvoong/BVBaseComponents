@@ -11,7 +11,7 @@ import UIKit
 open class DatasourceCell: UICollectionViewCell {
     
     open var datasourceItem: Any?
-    open var controller: DatasourceController?
+    open var controller: BVDatasourceController?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
