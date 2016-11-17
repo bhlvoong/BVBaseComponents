@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class DatasourceCell: UICollectionViewCell {
+open class BVDatasourceCell: UICollectionViewCell {
     
     open var datasourceItem: Any?
     open var controller: BVDatasourceController?
@@ -28,11 +28,11 @@ open class DatasourceCell: UICollectionViewCell {
     
 }
 
-open class Datasource: NSObject {
+open class BVDatasource: NSObject {
     
     public var objects: [Any]?
     
-    open func cellClasses() -> [DatasourceCell.Type] {
+    open func cellClasses() -> [BVDatasourceCell.Type] {
         return []
     }
     
@@ -67,7 +67,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
         return aiv
     }()
     
-    open var datasource: Datasource? {
+    open var datasource: BVDatasource? {
         didSet {
             if let cellClasses = datasource?.cellClasses() {
                 for cellClass in cellClasses {
@@ -119,7 +119,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
     
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cellClass = datasource?.cellClasses()[indexPath.section] {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(cellClass), for: indexPath) as! DatasourceCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(cellClass), for: indexPath) as! BVDatasourceCell
             cell.controller = self
             cell.datasourceItem = datasource?.item(indexPath: indexPath)
             return cell
@@ -131,7 +131,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
     override open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerClass = datasource?.headerClasses()[indexPath.section] else { return UICollectionViewCell() }
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(headerClass), for: indexPath) as! DatasourceCell
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(headerClass), for: indexPath) as! BVDatasourceCell
         header.datasourceItem = datasource?.headerItem(indexPath: indexPath)
         header.controller = self
         
