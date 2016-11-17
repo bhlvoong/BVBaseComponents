@@ -9,19 +9,19 @@
 import UIKit
 import BVBaseComponents
 
-class SimpleDatasource: BVDatasource {
+class SimpleDatasource: Datasource {
     
     override init() {
         super.init()
         objects = ["Hello", "these", "are", "basic", "useful", "components"]
     }
     
-    override func cellClasses() -> [BVDatasourceCell.Type] {
+    override func cellClasses() -> [DatasourceCell.Type] {
         return [SimpleCell.self]
     }
 }
 
-class SimpleCell: BVDatasourceCell {
+class SimpleCell: DatasourceCell {
     
     override var datasourceItem: Any? {
         didSet {
@@ -38,7 +38,7 @@ class SimpleCell: BVDatasourceCell {
     }
 }
 
-class SimpleCollectionViewController: BVDatasourceController {
+class SimpleCollectionViewController: DatasourceController {
 
     override func viewDidLoad() {
         super.viewDidLoad()

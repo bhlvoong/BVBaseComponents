@@ -8,10 +8,10 @@
 
 import UIKit
 
-open class BVDatasourceCell: UICollectionViewCell {
+open class DatasourceCell: UICollectionViewCell {
     
     open var datasourceItem: Any?
-    open var controller: BVDatasourceController?
+    open var controller: DatasourceController?
     
     public override init(frame: CGRect) {
         super.init(frame: frame)
@@ -28,11 +28,11 @@ open class BVDatasourceCell: UICollectionViewCell {
     
 }
 
-open class BVDatasource: NSObject {
+open class Datasource: NSObject {
     
     public var objects: [Any]?
     
-    open func cellClasses() -> [BVDatasourceCell.Type] {
+    open func cellClasses() -> [DatasourceCell.Type] {
         return []
     }
     
@@ -58,7 +58,7 @@ open class BVDatasource: NSObject {
     
 }
 
-open class BVDatasourceController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
+open class DatasourceController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     open let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
@@ -67,7 +67,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
         return aiv
     }()
     
-    open var datasource: BVDatasource? {
+    open var datasource: Datasource? {
         didSet {
             if let cellClasses = datasource?.cellClasses() {
                 for cellClass in cellClasses {
@@ -119,7 +119,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
     
     override open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if let cellClass = datasource?.cellClasses()[indexPath.section] {
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(cellClass), for: indexPath) as! BVDatasourceCell
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: NSStringFromClass(cellClass), for: indexPath) as! DatasourceCell
             cell.controller = self
             cell.datasourceItem = datasource?.item(indexPath: indexPath)
             return cell
@@ -131,7 +131,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
     override open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         guard let headerClass = datasource?.headerClasses()[indexPath.section] else { return UICollectionViewCell() }
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(headerClass), for: indexPath) as! BVDatasourceCell
+        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(headerClass), for: indexPath) as! DatasourceCell
         header.datasourceItem = datasource?.headerItem(indexPath: indexPath)
         header.controller = self
         
