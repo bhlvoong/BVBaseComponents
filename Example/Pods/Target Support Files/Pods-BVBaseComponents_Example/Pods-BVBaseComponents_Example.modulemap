@@ -1,0 +1,6 @@
+framework module Pods_BVBaseComponents_Example {
+  umbrella header "Pods-BVBaseComponents_Example-umbrella.h"
+
+  export *
+  module * { export * }
+}

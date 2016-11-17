@@ -1,0 +1,16 @@
+PODS:
+  - BVBaseComponents (0.1.0)
+
+DEPENDENCIES:
+  - BVBaseComponents (from `../`)
+
+EXTERNAL SOURCES:
+  BVBaseComponents:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  BVBaseComponents: 60fb77ceac0663a21f2ddbdfb877161763be66a1
+
+PODFILE CHECKSUM: 6a61fd06727d7bc2db1bb0e642bde8da1105a310
+
+COCOAPODS: 1.1.1

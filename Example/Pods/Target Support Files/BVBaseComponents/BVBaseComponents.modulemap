@@ -1,0 +1,6 @@
+framework module BVBaseComponents {
+  umbrella header "BVBaseComponents-umbrella.h"
+
+  export *
+  module * { export * }
+}
