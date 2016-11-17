@@ -42,6 +42,7 @@ class SimpleCollectionViewController: BVDatasourceController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         navigationItem.title = "Basic Components & Helpers"
         collectionView?.backgroundColor = .white
         datasource = SimpleDatasource()
