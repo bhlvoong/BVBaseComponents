@@ -60,14 +60,14 @@ open class Datasource: NSObject {
 
 open class BVDatasourceController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
-    public let activityIndicatorView: UIActivityIndicatorView = {
+    open let activityIndicatorView: UIActivityIndicatorView = {
         let aiv = UIActivityIndicatorView(activityIndicatorStyle: .whiteLarge)
         aiv.hidesWhenStopped = true
         aiv.color = .black
         return aiv
     }()
     
-    public var datasource: Datasource? {
+    open var datasource: Datasource? {
         didSet {
             if let cellClasses = datasource?.cellClasses() {
                 for cellClass in cellClasses {
@@ -113,7 +113,7 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
     }
     
     //need to override this otherwise size doesn't get called
-    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         return CGSize(width: view.frame.width, height: 50)
     }
     
@@ -138,17 +138,17 @@ open class BVDatasourceController: UICollectionViewController, UICollectionViewD
         return header
     }
     
-    public func getRefreshControl() -> UIRefreshControl {
+    open func getRefreshControl() -> UIRefreshControl {
         let rc = UIRefreshControl()
         rc.addTarget(self, action: #selector(handleRefresh), for: .valueChanged)
         return rc
     }
     
-    public func handleRefresh() {
+    open func handleRefresh() {
         
     }
     
-    public var layout: UICollectionViewFlowLayout? {
+    open var layout: UICollectionViewFlowLayout? {
         get {
             return collectionViewLayout as? UICollectionViewFlowLayout
         }
