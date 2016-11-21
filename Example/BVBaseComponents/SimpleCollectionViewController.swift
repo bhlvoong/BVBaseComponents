@@ -19,6 +19,15 @@ class SimpleDatasource: Datasource {
     override func cellClasses() -> [DatasourceCell.Type] {
         return [SimpleCell.self]
     }
+    
+    override func headerClasses() -> [AnyClass] {
+        return [SimpleHeader.self]
+    }
+    
+    override func footerClasses() -> [AnyClass] {
+        return [SimpleFooter.self]
+    }
+
 }
 
 class SimpleCell: DatasourceCell {
@@ -38,6 +47,36 @@ class SimpleCell: DatasourceCell {
     }
 }
 
+class SimpleHeader: DatasourceCell {
+    let textlabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Collection Header"
+        return label
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        addSubview(textlabel)
+        textlabel.fillSuperview()
+    }
+}
+
+class SimpleFooter: DatasourceCell {
+    let textlabel: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.text = "Footer"
+        return label
+    }()
+    
+    override func setupViews() {
+        super.setupViews()
+        addSubview(textlabel)
+        textlabel.fillSuperview()
+    }
+}
+
 class SimpleCollectionViewController: DatasourceController {
 
     override func viewDidLoad() {
@@ -46,6 +85,14 @@ class SimpleCollectionViewController: DatasourceController {
         navigationItem.title = "Basic Components & Helpers"
         collectionView?.backgroundColor = .white
         datasource = SimpleDatasource()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 50)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: view.frame.width, height: 50)
     }
 
 }

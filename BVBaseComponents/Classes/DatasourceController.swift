@@ -8,56 +8,6 @@
 
 import UIKit
 
-open class DatasourceCell: UICollectionViewCell {
-    
-    open var datasourceItem: Any?
-    open var controller: DatasourceController?
-    
-    public override init(frame: CGRect) {
-        super.init(frame: frame)
-        setupViews()
-    }
-    
-    open func setupViews() {
-        clipsToBounds = true
-    }
-    
-    public required init?(coder aDecoder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
-}
-
-open class Datasource: NSObject {
-    
-    public var objects: [Any]?
-    
-    open func cellClasses() -> [DatasourceCell.Type] {
-        return []
-    }
-    
-    open func headerClasses() -> [AnyClass] {
-        return []
-    }
-    
-    open func numberOfItems(section: Int) -> Int {
-        return objects?.count ?? 0
-    }
-    
-    open func numberOfSections() -> Int {
-        return 1
-    }
-    
-    open func item(indexPath: IndexPath) -> Any? {
-        return objects?[indexPath.item]
-    }
-    
-    open func headerItem(indexPath: IndexPath) -> Any? {
-        return nil
-    }
-    
-}
-
 open class DatasourceController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
     
     open let activityIndicatorView: UIActivityIndicatorView = {
@@ -78,6 +28,12 @@ open class DatasourceController: UICollectionViewController, UICollectionViewDel
             if let headerClasses = datasource?.headerClasses() {
                 for headerClass in headerClasses {
                     collectionView?.register(headerClass, forSupplementaryViewOfKind: UICollectionElementKindSectionHeader, withReuseIdentifier: NSStringFromClass(headerClass))
+                }
+            }
+            
+            if let footerClasses = datasource?.footerClasses() {
+                for footerClass in footerClasses {
+                    collectionView?.register(footerClass, forSupplementaryViewOfKind: UICollectionElementKindSectionFooter, withReuseIdentifier: NSStringFromClass(footerClass))
                 }
             }
             
@@ -129,13 +85,25 @@ open class DatasourceController: UICollectionViewController, UICollectionViewDel
     }
     
     override open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let headerClass = datasource?.headerClasses()[indexPath.section] else { return UICollectionViewCell() }
         
-        let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(headerClass), for: indexPath) as! DatasourceCell
-        header.datasourceItem = datasource?.headerItem(indexPath: indexPath)
-        header.controller = self
+        var reusableView = DatasourceCell()
         
-        return header
+        if kind == UICollectionElementKindSectionHeader {
+            if let count = datasource?.headerClasses().count, count > indexPath.section {
+                if let headerClass = datasource?.headerClasses()[indexPath.section] {
+                    reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(headerClass), for: indexPath) as! DatasourceCell
+                }
+            }
+        } else {
+            if let footerClass = datasource?.footerClasses()[indexPath.section] {
+                reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: NSStringFromClass(footerClass), for: indexPath) as! DatasourceCell
+            }
+        }
+        
+        reusableView.datasourceItem = datasource?.headerItem(indexPath: indexPath)
+        reusableView.controller = self
+        
+        return reusableView
     }
     
     open func getRefreshControl() -> UIRefreshControl {
